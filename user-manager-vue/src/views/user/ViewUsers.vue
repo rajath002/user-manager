@@ -5,12 +5,12 @@
     <div>
       <div>{{ user.name }}</div>
       <div>{{ user.email }}</div>
-      <div>{{user.createdAt}}</div>
-      <div>{{user.updatedAt}}</div>
+      <div>{{ user.createdAt }}</div>
+      <div>{{ user.updatedAt }}</div>
     </div>
     <div>
       <button @click="updateUser()">Update</button>
-      <button @click="deleteUser()">Delete</button>
+      <button @click="deleteUser(user._id)">Delete</button>
     </div>
   </div>
 </template>
@@ -35,16 +35,23 @@ export default {
       } catch (error) {
         console.log("Something wrong", error);
       }
-    }
-  }
+    },
+    async deleteUser(_id) {
+      const response = await userService.deleteUser(_id);
+      if (response.status === 200) {
+        const deletedUser = await response.json();
+        this.users = this.users.filter(user => user._id !== deletedUser._id);
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .card {
-    display: flex;
-    justify-content: space-between;
-    width: 400px;
-    margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  margin: 0 auto;
 }
 </style>
