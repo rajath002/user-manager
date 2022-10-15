@@ -1,6 +1,8 @@
 <template>
   <button @click="init">Refresh</button>
   <h3>{{ title }}</h3>
+  <div>Search users</div>
+  <input type="text" @input="search" placeholder="Search.." />
   <div class="card" v-for="user in users" v-bind:key="user._id">
     <div>
       <div>{{ user.name }}</div>
@@ -45,12 +47,14 @@ export default {
     return {
       title: "VIEWS",
       users: [],
+      // searchText: "",
       update: {
         isUpdate: false,
         updateId: "",
         userName: "",
         userEmail: "",
       },
+      searchTimer: null,
     };
   },
   mounted() {
@@ -94,7 +98,8 @@ export default {
         if (user._id === this.update.updateId) {
           return {
             ...user,
-            ...data,
+            name: data.name,
+            email: data.email,
           };
         }
         return user;
@@ -107,6 +112,21 @@ export default {
       this.update.updateId = "";
       this.update.userName = "";
       this.update.userEmail = "";
+    },
+    search(event) {
+      const { value } = event.target;
+
+      if (this.searchTimer) clearTimeout(this.searchTimer);
+
+      this.searchTimer = setTimeout(() => {
+        if (!value) this.init();
+        else
+          userService
+            .search(value)
+            .then((response) => response.json())
+            .then((data) => (this.users = data))
+            .catch((err) => console.error("Something went wrong! ", err));
+      }, 500);
     },
   },
 };

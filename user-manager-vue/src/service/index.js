@@ -31,5 +31,8 @@ export const userService = {
       },
       body: JSON.stringify(user)
     });
+  },
+  search: (text) => {
+    return fetch(`${url}/users/search/${text}`);
   }
 };
