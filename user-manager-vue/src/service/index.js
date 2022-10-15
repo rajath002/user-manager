@@ -18,4 +18,18 @@ export const userService = {
       body: JSON.stringify(body),
     });
   },
+  deleteUser: (_id) => {
+    return fetch(`${url}/users/${_id}`, {
+      method: 'delete'
+    });
+  },
+  updateUser: (user) => {
+    return fetch(`${url}/users/${user._id}`, {
+      method: 'put',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user)
+    });
+  }
 };
