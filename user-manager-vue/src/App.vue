@@ -11,8 +11,8 @@ export default {
   name: "App",
   components: {
     ViewUsers,
-    AddUser
-},
+    AddUser,
+  },
 };
 </script>
 
@@ -22,8 +22,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background: #2c3e50;
-  color: white;
+  color: black;
   margin-top: 60px;
+  border: 1px solid #CFD8DC;
 }
 </style>

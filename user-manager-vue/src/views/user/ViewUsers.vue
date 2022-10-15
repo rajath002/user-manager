@@ -3,39 +3,41 @@
   <h3>{{ title }}</h3>
   <div>Search users</div>
   <input type="text" @input="search" placeholder="Search.." />
-  <div class="card" v-for="user in users" v-bind:key="user._id">
-    <div>
-      <div>{{ user.name }}</div>
-      <div>{{ user.email }}</div>
-      <div>{{ user.createdAt }}</div>
-      <div>{{ user.updatedAt }}</div>
-      <div class="update-user" v-if="update.updateId === user._id">
-        <div>
-          <input
-            type="text"
-            name="editUsername"
-            id="updateUsername"
-            v-model="update.userName"
-            placeholder="Name"
-          />
+  <div class="card-container">
+    <div class="card" v-for="user in users" v-bind:key="user._id">
+      <div>
+        <div class="avatar center-div">
+          {{ user.name.substring(0, 1).toLocaleUpperCase() }}
         </div>
-        <div>
-          <input
-            type="text"
-            name="updateUseremail"
-            id="updateUseremail"
-            v-model="update.userEmail"
-            placeholder="Email"
-          />
+        <div><span >{{ user.name }}</span> | <span class="badge">{{ user.email }}</span></div>
+        <div class="update-user" v-if="update.updateId === user._id">
+          <div>
+            <input
+              type="text"
+              name="editUsername"
+              id="updateUsername"
+              v-model="update.userName"
+              placeholder="Name"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="updateUseremail"
+              id="updateUseremail"
+              v-model="update.userEmail"
+              placeholder="Email"
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div>
-      <button v-if="update.updateId !== user._id" @click="editUser(user)">
-        Edit
-      </button>
-      <button v-else @click="updateUser(user)">Update</button>
-      <button @click="deleteUser(user._id)">Delete</button>
+      <div class="footer">
+        <button v-if="update.updateId !== user._id" @click="editUser(user)">
+          Edit
+        </button>
+        <button v-else @click="updateUser(user)">Update</button>
+        <button @click="deleteUser(user._id)">Delete</button>
+      </div>
     </div>
   </div>
 </template>
@@ -133,12 +135,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card-container {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  .avatar {
+    background: linear-gradient(45deg, #00ffe5, #ff13ffcf);
+    height: 2rem;
+    width: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+  }
+}
 .card {
-  display: flex;
-  justify-content: space-between;
+  display: block;
   width: 400px;
   margin: 5px auto;
   padding: 0.5rem;
-  border: #f5f5f5 solid;
+  box-shadow: 1px 1px 2px 0px #cfd8dc;
+  background: linear-gradient(45deg, #cfd8dc, #efefef);
+  .footer {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.center-div {
+  margin: 1rem auto;
+}
+.badge {
+  background: #80808059;
+  padding: 5px;
+  border-radius: 1rem;
 }
 </style>
