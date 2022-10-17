@@ -1,6 +1,6 @@
 <template>
-  <AddUser />
-  <ViewUsers />
+  <AddUser @reloadView="reloadView"/>
+  <ViewUsers :reload="reload"/>
 </template>
 
 <script>
@@ -13,6 +13,16 @@ export default {
     ViewUsers,
     AddUser,
   },
+  data() {
+    return {
+      reload: 0,
+    };
+  },
+  methods: {
+    reloadView () {
+      this.reload ++;
+    }
+  }
 };
 </script>
 

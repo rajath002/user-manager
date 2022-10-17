@@ -45,11 +45,13 @@
 <script >
 import { userService } from "@/service";
 export default {
+  props: {
+    reload: Number
+  },  
   data() {
     return {
       title: "VIEWS",
       users: [],
-      // searchText: "",
       update: {
         isUpdate: false,
         updateId: "",
@@ -62,6 +64,11 @@ export default {
   mounted() {
     this.init();
   },
+  watch: {
+    reload() {
+      this.init();
+    }
+  },  
   methods: {
     async init() {
       try {
@@ -139,6 +146,7 @@ export default {
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1rem;
   .avatar {
     background: linear-gradient(45deg, #00ffe5, #ff13ffcf);
     height: 2rem;

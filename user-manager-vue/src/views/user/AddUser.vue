@@ -39,6 +39,7 @@ export default {
         form.elements["name"].value = ''
         form.elements["email"].value = ''
         form.elements["password"].value = ''
+        this.$emit('reloadView');
       });
     },
   },
